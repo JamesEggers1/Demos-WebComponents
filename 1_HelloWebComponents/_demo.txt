@@ -1,6 +1,19 @@
 ==============================
 1. Add Simple Content
 ==============================
+constructor(){
+    super();
+
+    const contentElement = document.createElement('p');
+    contentElement.innerText = 'Hello Web Components!';
+    this.appendChild(contentElement);
+}
+
+connectedCallback(){
+    
+}
+
+==============================
 
 constructor(){
     super();
@@ -10,12 +23,74 @@ connectedCallback(){
     this.innerHTML = "<p>Hello Web Components!</p>";
 }
 
+==============================
+2. Read Attributes
+==============================
+constructor(){
+    super();
+}
+
+connectedCallback(){
+    let text = 'Hello Web Components!';
+    if (this.hasAttribute('text')) {
+        text = this.getAttribute('text');
+    }
+
+    this.innerHTML = `<p>${text}</p>`;
+}
+
 
 ==============================
-2. Add Slot
+2. Changing Attributes
 ==============================
+constructor(){
+    super();
+}
 
+connectedCallback(){
+    let text = 'Hello Web Components!';
+    if (this.hasAttribute('text')) {
+        text = this.getAttribute('text');
+    }
+
+    this.innerHTML = `<p>${text}</p>`;
+}
+
+attributeChangedCallback(name, oldValue, newValue) {
+    if (name === 'text') {
+        const contentElement = this.querySelector('p');
+        contentElement.innerText = newValue;
+    }
+}
+
+static get observedAttributes() {
+    return ['text'];
+}
 
 ==============================
-3. Read Attributes?
+3. Add Events
 ==============================
+constructor(){
+    super();
+}
+
+connectedCallback(){
+    let text = 'Hello Web Components!';
+    if (this.hasAttribute('text')) {
+        text = this.getAttribute('text');
+    }
+
+    this.innerHTML = `<p>${text}</p>`;
+    const contentElement = this.querySelector('p');
+    contentElement.addEventListener('mouseenter', this._toggleBackground);
+    contentElement.addEventListener('mouseleave', this._toggleBackground);
+    this.appendChild(contentElement);
+}
+
+_toggleBackground() {        
+    if (this.style.background === 'yellow'){
+        this.style.background = '';
+    } else {
+        this.style.background = 'yellow';
+    }
+}

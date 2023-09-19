@@ -5,7 +5,7 @@
 constructor(){
     super();
     this.attachShadow({mode: "open"});
-    this.shadowRoot.innerHTML = `<p></p>`;
+    this.shadowRoot.innerHTML = `<p>${text}</p>`;
     const contentElement = this.shadowRoot.querySelector('p');
     contentElement.addEventListener('mouseenter', this._toggleBackground);
     contentElement.addEventListener('mouseleave', this._toggleBackground);
@@ -17,8 +17,8 @@ connectedCallback(){
         text = this.getAttribute('text');
     }
 
-    const contentElement = this.shaodwRoot.querySelector('p');
-    contentElement.innerHTML = text;
+    const contentElement = this.querySelector('p');
+    contentElement.innerHTML = `<p>${text}</p>`;
 }
 
 _toggleBackground() {        
@@ -34,19 +34,4 @@ _toggleBackground() {
 2. Add Slot
 ==============================
 
-constructor(){
-    super();
-    this.attachShadow({mode: "open"});
-    this.shadowRoot.innerHTML = `<p><slot>Hello, Web Components!</slot></p>`;
-    const contentElement = this.shadowRoot.querySelector('p');
-    contentElement.addEventListener('mouseenter', this._toggleBackground);
-    contentElement.addEventListener('mouseleave', this._toggleBackground);
-}
 
-_toggleBackground() {        
-    if (this.style.background === 'yellow'){
-        this.style.background = '';
-    } else {
-        this.style.background = 'yellow';
-    }
-}
